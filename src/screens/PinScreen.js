@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 
 import TextStyled from '../components/Text';
+import NumberPad from '../components/NumberPad';
 
 const PinScreen = ({ navigation }) => {
     const [pinCount, setPinCount] = useState(0);
@@ -25,6 +26,13 @@ const PinScreen = ({ navigation }) => {
 
         return pins;
     };
+
+    const pressKey = (_, index) => {
+        setPinCount((prev) => {
+            return index != 10 ? prev + 1 : prev - 1;
+        });
+    };
+
     return (
         <Container>
             <TextStyled center heavy title color='#964ff0' margin='32px 0 0 0'>
@@ -46,6 +54,8 @@ const PinScreen = ({ navigation }) => {
                     Use Touch ID
                 </TextStyled>
             </UseTouch>
+
+            <NumberPad onPress={pressKey} />
 
             <StatusBar barStyle='light-content' />
         </Container>
