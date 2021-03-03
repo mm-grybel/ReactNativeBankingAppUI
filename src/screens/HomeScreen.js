@@ -1,8 +1,10 @@
 import React from 'react';
+import { Dimensions } from 'react-native';
 import styled from 'styled-components';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { LineChart } from 'react-native-chart-kit';
 
 import TextStyled from '../components/Text';
 import purchaseData from '../data/purchases';
@@ -32,6 +34,39 @@ const HomeScreen = () => {
 
             <TextStyled center title black>$9,184.17</TextStyled>
             <TextStyled center heavy color='#727479'>Current Balance</TextStyled>
+
+            <Chart>
+                <LineChart data={{
+                    labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                    datasets: [
+                        {
+                            data: [
+                                Math.random() * 10,
+                                Math.random() * 10,
+                                Math.random() * 10,
+                                Math.random() * 10,
+                                Math.random() * 10,
+                                Math.random() * 10,
+                            ],
+                        },
+                    ],
+                }}
+                width={Dimensions.get('window').width}
+                height={250}
+                yAxisLabel='$'
+                yAxisSuffix='k'
+                chartConfig={{
+                    backgroundGradientFrom: '#1e1e1e',
+                    backgroundGradientTo: '#1e1e1e',
+                    color: (opacity = 1) => `rgba(81, 150, 244, ${opacity})`,
+                    labelColor: () => `rgba(255, 255, 255, 0.2)`,
+                    strokeWidth: 3,
+                }} 
+                withVerticalLines={false}
+                withHorizontalLines={false}
+                bezier
+                />
+            </Chart>
 
             <Purchases 
                 ListHeaderComponent={
@@ -77,6 +112,10 @@ const ProfilePhoto = styled.Image`
 const Welcome = styled.View`
     flex: 1;
     padding: 0 16px;
+`;
+
+const Chart = styled.View`
+    margin: 32px 0;
 `;
 
 const Purchases = styled.FlatList`
